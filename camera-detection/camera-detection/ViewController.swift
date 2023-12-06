@@ -49,7 +49,7 @@ class ViewController: UIViewController {
             /*
              let request = VNCoreMLRequest(model: <#T##VNCoreMLModel#>, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
              VNImageRequestHandler(cgImage: <#T##CGImage#>, options: [:]).perform(<#T##requests: [VNRequest]##[VNRequest]#>)
-             */            
+             */
         }catch {
             print(Error.self, "no camera permissions")
         }
@@ -64,7 +64,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         guard let pixelBuffer =  CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
-        guard let model = try? VNCoreMLModel(for: Resnet50().model) else { return }
+        guard let model = try? VNCoreMLModel(for: Resnet50(configuration: MLModelConfiguration()).model) else { return }
         
         let request = VNCoreMLRequest(model: model) { (finishedRequest, error) in
             
