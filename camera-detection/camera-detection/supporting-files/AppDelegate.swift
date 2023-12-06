@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  camera-detection
 //
-//  Created by rafaelviewcontroller on 9/28/19.
-//  Copyright © 2019 rafaelviewcontroller. All rights reserved.
+//  Created by Rafael Scalzo on 9/28/19.
+//  Copyright © 2019 Rafael Scalzo. All rights reserved.
 //
 
 import UIKit
@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        window?.rootViewController = UINavigationController(rootViewController: CameraViewController())
         
         return true
     }

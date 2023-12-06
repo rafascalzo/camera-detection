@@ -1,16 +1,16 @@
 //
-//  ViewController.swift
+//  CameraViewController.swift
 //  camera-detection
 //
-//  Created by rafaelviewcontroller on 9/28/19.
-//  Copyright © 2019 rafaelviewcontroller. All rights reserved.
+//  Created by Rafael Scalzo on 9/28/19.
+//  Copyright © 2019 Rafael Scalzo. All rights reserved.
 //
 
 import UIKit
 import AVKit
 import Vision
 
-class ViewController: UIViewController {
+class CameraViewController: UIViewController {
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
-extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("Camera was able to capture a frame", Date())

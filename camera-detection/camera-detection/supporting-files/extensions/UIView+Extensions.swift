@@ -1,9 +1,9 @@
 //
-//  view.swift
+//  UIView+Extensions.swift
 //  camera-detection
 //
-//  Created by rafaelviewcontroller on 9/28/19.
-//  Copyright © 2019 rafaelviewcontroller. All rights reserved.
+//  Created by Rafael Scalzo on 9/28/19.
+//  Copyright © 2019 Rafael Scalzo. All rights reserved.
 //
 
 import Foundation
@@ -62,7 +62,7 @@ extension UIView {
         return blur
     }()
     
-    // MARK: - Methods
+    // MARK: - Add Shadow
     func addShadow(_ color : UIColor , shadowOptions : ShadowOptions) -> Void{
         
         layer.masksToBounds = false
@@ -99,28 +99,35 @@ extension UIView {
         }
     }
     
+    // MARK: - Setup Light Borders
     func setupLightBorders(withColor color : UIColor) -> Void {
         layer.masksToBounds = true
         layer.borderColor = color.cgColor
         layer.borderWidth = 0.25
     }
     
+    // MARK: - Make Circular
     func makeCircular(with diameter:CGFloat?) {
         if let diameter = diameter {
             layer.cornerRadius = diameter / 2
         }
     }
     
-    func addBlur(){
+    // MARK: - Add Blur
+    func addBlur() {
         UIView.blurEffectView.alpha = 0.5
         UIView.blurEffectView.frame = self.bounds
         addSubview(.blurEffectView)
     }
+    
+    // MARK: - Remove Blur
     func removeBlur() {
         UIView.blurEffectView.frame = .zero
         UIView.blurEffectView.removeFromSuperview()
     }
-    func adjustScaleImage(){
+    
+    // MARK: - Adjust Scale Image
+    func adjustScaleImage() {
         self.contentMode = .scaleAspectFill
     }
 }
