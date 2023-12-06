@@ -11,20 +11,27 @@ import AVKit
 import Vision
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .blue
         
-        // Start up the camera
+        /// Start up the camera
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else { print("need a real device to test this feature"); return }
-        //guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {
-        //return
-        //}
-        //or
         
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+            print("need a real device to test this feature");
+            return
+        }
+        
+        startCapture(captureDevice, captureSession)
+    }
+    
+    // MARK: - Private methods
+    fileprivate func startCapture(_ captureDevice: AVCaptureDevice, _ captureSession: AVCaptureSession) {
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice)
             captureSession.addInput(input)
@@ -39,17 +46,17 @@ class ViewController: UIViewController {
             dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
             captureSession.addOutput(dataOutput)
             
-//            let request = VNCoreMLRequest(model: <#T##VNCoreMLModel#>, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
-//            VNImageRequestHandler(cgImage: <#T##CGImage#>, options: [:]).perform(<#T##requests: [VNRequest]##[VNRequest]#>)
-            
+            /*
+             let request = VNCoreMLRequest(model: <#T##VNCoreMLModel#>, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
+             VNImageRequestHandler(cgImage: <#T##CGImage#>, options: [:]).perform(<#T##requests: [VNRequest]##[VNRequest]#>)
+             */            
         }catch {
             print(Error.self, "no camera permissions")
         }
-        
-        
     }
 }
 
+// MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -73,6 +80,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             
             print(firstObservation.identifier, firstObservation.confidence)
         }
+        
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
     }
 }
